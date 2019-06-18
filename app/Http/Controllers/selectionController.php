@@ -46,7 +46,7 @@ class selectionController extends Controller
      */
     public function show($id)
     {
-        return Selection::find($id);
+        return Selection::where('selid', $id)->first();
     }
 
     /**

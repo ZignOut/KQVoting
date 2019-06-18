@@ -46,7 +46,7 @@ class voteController extends Controller
      */
     public function show($id)
     {
-        return Vote::find($id);
+        return Vote::where('voteid', $id)->first();
     }
 
     /**

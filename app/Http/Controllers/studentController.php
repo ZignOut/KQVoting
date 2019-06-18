@@ -47,7 +47,7 @@ class studentController extends Controller
      */
     public function show($id)
     {
-        return Student::find($id);
+        return Student::where('stuid', $id)->first();
     }
 
     /**
@@ -84,7 +84,7 @@ class studentController extends Controller
      */
     public function delete($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::find($id);
         $student->delete();
 
         return 204;
