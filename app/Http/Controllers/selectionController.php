@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Selection;
 
 class selectionController extends Controller
 {
@@ -13,7 +14,7 @@ class selectionController extends Controller
      */
     public function index()
     {
-        //
+        return Selection::all();
     }
 
     /**
@@ -34,7 +35,7 @@ class selectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Selection::create($request->all());
     }
 
     /**
@@ -45,7 +46,7 @@ class selectionController extends Controller
      */
     public function show($id)
     {
-        //
+        return Selection::find($id);
     }
 
     /**
@@ -56,7 +57,10 @@ class selectionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $student = Selection::findOrFail($id);
+        $student->update($request->all());
+
+        return $student;
     }
 
     /**
@@ -77,8 +81,11 @@ class selectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $student = Selection::findOrFail($id);
+        $student->delete();
+
+        return 204;
     }
 }

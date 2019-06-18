@@ -14,18 +14,18 @@ class Vote extends Migration
     public function up()
     {
         Schema::create('votes', function(Blueprint $table){
-            $table->bigIncrements('voteid');
-            $table->index('studentid')->unsigned();
-            $table->foreign('studentid')->references('stuid')->on('students')->onDelete('cascade');
+            $table->bigIncrements('voteid')->unique();
+            $table->bigInteger('stuid')->unsigned();
+            $table->foreign('stuid')->references('stuid')->on('students');
 
-            $table->index('v1')->unsigned();
-            $table->foreign('v')->references('selid')->on('slelections')->onDelete('cascade');
-            $table->index('v2')->unsigned();
-            $table->foreign('v')->references('selid')->on('slelections')->onDelete('cascade');
-            $table->index('v3')->unsigned();
-            $table->foreign('v')->references('selid')->on('slelections')->onDelete('cascade');
-            $table->index('v4')->unsigned();
-            $table->foreign('v')->references('selid')->on('slelections')->onDelete('cascade');
+            $table->bigInteger('v1')->unsigned()->nullable();
+            $table->foreign('v1')->references('selid')->on('selections');
+            $table->bigInteger('v2')->unsigned()->nullable();
+            $table->foreign('v2')->references('selid')->on('selections');
+            $table->bigInteger('v3')->unsigned()->nullable();
+            $table->foreign('v3')->references('selid')->on('selections');
+            $table->bigInteger('v4')->unsigned()->nullable();
+            $table->foreign('v4')->references('selid')->on('selections');
             $table->date('created_at');
             $table->date('updated_at');
         });

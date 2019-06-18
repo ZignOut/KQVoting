@@ -18,7 +18,7 @@ class Student extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('rollno');
-            $table->string('key')->unique();
+            $table->string('key');
             $table->integer('is_voted');
             $table->date('created_at');
             $table->date('updated_at');

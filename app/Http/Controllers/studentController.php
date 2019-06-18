@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Student;
 
 class studentController extends Controller
 {
@@ -14,8 +15,7 @@ class studentController extends Controller
      */
     public function index()
     {
-        $studentlist = DB::table('student')->get();
-        return view('/data/student', ['studentlist'=>$studentlist]);
+        return Student::all();
     }
 
     /**
@@ -25,15 +25,7 @@ class studentController extends Controller
      *///
     public function create(Request $request)
     {
-        $stuid = $request->input('stuid');
-        $name = $request->input('stuname');
-        $email = $request->input('stuemail');
-        $rollno = $request->input('sturollno');
-        $data = array('stuid'=>$stuid, 'name'=>$name, 'email'=>$email, 'rollno'=>$rollno, 'created_at'=>date('Y-m-d H:i:s'), 'modified_at'=>date('Y-m-d H:i:s'));
-        DB::table('student')->create($data);
-        
-        $studentlist = DB::table('student')->get();
-        return view('/data/student', ["studentlist"=>$studentlist]);
+        //
     }
 
     /**
@@ -44,7 +36,7 @@ class studentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Student::create($request->all());
     }
 
     /**
@@ -55,8 +47,7 @@ class studentController extends Controller
      */
     public function show($id)
     {
-        $studata = DB::table('student')->get()->where('stuid',$id);
-        return view('/data/student', ['studata', $studata]);
+        return Student::find($id);
     }
 
     /**
@@ -79,7 +70,10 @@ class studentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student = Student::findOrFail($id);
+        $student->update($request->all());
+
+        return $student;
     }
 
     /**
@@ -88,9 +82,11 @@ class studentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        $studentlist = DB::table('student')->where('stuid', $id);
-        return view('studentlist', $studentlist);
+        $student = Student::findOrFail($id);
+        $student->delete();
+
+        return 204;
     }
 }

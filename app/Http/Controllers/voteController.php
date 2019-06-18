@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Vote;
 
 class voteController extends Controller
 {
@@ -13,7 +14,7 @@ class voteController extends Controller
      */
     public function index()
     {
-        //
+        return Vote::all();
     }
 
     /**
@@ -34,7 +35,7 @@ class voteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Vote::create($request->all());
     }
 
     /**
@@ -45,7 +46,7 @@ class voteController extends Controller
      */
     public function show($id)
     {
-        //
+        return Vote::find($id);
     }
 
     /**
@@ -68,7 +69,10 @@ class voteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $student = Vote::findOrFail($id);
+        $student->update($request->all());
+
+        return $student;
     }
 
     /**
@@ -77,8 +81,11 @@ class voteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $student = Vote::findOrFail($id);
+        $student->delete();
+
+        return 204;
     }
 }
